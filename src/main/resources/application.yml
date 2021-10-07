@@ -1,0 +1,26 @@
+server:
+  port: 9191
+
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: STUDENT-SERVICE
+          uri: lb://STUDENT-SERVICE
+          predicates:
+            - Path=/student/**
+        - id: FACULTY-SERVICE
+          uri: lb://FACULTY-SERVICE
+          predicates:
+            - Path=/faculty/**
+
+    config:
+      uri: http://localhost:8888
+
+  config:
+    import: "optional:configserver:"
+
